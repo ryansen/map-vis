@@ -1,0 +1,136 @@
+body {
+    font: 100%/1.5 system-ui, sans-serif;
+    display: flex;
+    flex-flow: column;
+    max-width: 80em;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: auto;
+    padding: 1em;
+  }
+header {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between; /* Moves elements apart */
+}
+
+label {
+    margin-left: auto;
+    display: flex;
+    gap: 0.5em;
+    align-items: center;
+}
+
+input[type="range"] {
+    cursor: pointer;
+    width: 300px; /* Makes slider longer */
+}
+
+time {
+    font-weight: bold;
+    display: block;
+}
+
+em {
+    font-style: italic;
+    color: gray;
+    display: block;
+}
+
+circle {
+    pointer-events: auto
+}
+
+/* General Legend Container Styling */
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Ensures spacing between legend items */
+    margin-top: 10px; /* Adds spacing from the map */
+    padding: 8px 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+/* Individual Legend Items */
+.legend > div {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Smaller gap to keep the swatch closer to the label */
+    font-weight: bold;
+}
+
+/* Swatch Styling using ::before pseudo-element */
+.legend > div::before {
+    content: "";
+    display: inline-block;
+    width: 16px;  /* Size of color swatch */
+    height: 16px; /* Size of color swatch */
+    border-radius: 50%;
+    background-color: var(--color);
+    border: 1px solid #ccc;
+}
+
+/* General Legend Container Styling */
+.legend {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Ensures spacing between legend items */
+    margin-top: 10px; /* Adds spacing from the map */
+    padding: 8px 12px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-family: sans-serif;
+}
+
+/* Individual Legend Items */
+.legend > div {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* Smaller gap to keep the swatch closer to the label */
+    font-weight: bold;
+}
+
+/* Swatch Styling using ::before pseudo-element */
+.legend > div::before {
+    content: "";
+    display: inline-block;
+    width: 16px;  /* Size of color swatch */
+    height: 16px; /* Size of color swatch */
+    border-radius: 50%;
+    background-color: var(--color);
+    border: 1px solid #ccc;
+}
+
+/* Define the Colors Based on --departure-ratio */
+.legend > div[style*="--departure-ratio: 1"]::before {
+    background-color: steelblue; /* More departures */
+}
+
+.legend > div[style*="--departure-ratio: half"]::before {
+    background-color: purple; /* True Balanced Color */
+}
+
+.legend > div[style*="--departure-ratio: 0"]::before {
+    background-color: darkorange; /* More arrivals */
+}
+
+/* Ensure the same color rules apply to the map circles */
+circle {
+    pointer-events: auto;
+    --color-departures: steelblue;
+    --color-arrivals: darkorange;
+    --color: color-mix(
+        in oklch,
+        var(--color-departures) calc(100% * var(--departure-ratio)),
+        var(--color-arrivals)
+    );
+    fill: var(--color);
+}
